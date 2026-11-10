@@ -18,6 +18,7 @@ a:hover{color:var(--mint)}
 p{margin:0 0 16px}
 h1,h2,h3,h4{margin:0 0 14px;font-weight:720;letter-spacing:-.035em;line-height:1.15}
 h1{font-size:clamp(2.4rem,5vw,4.6rem)}
+.page-title{font-size:clamp(2.2rem,4.5vw,3.5rem);letter-spacing:-.045em;line-height:1.1}
 h2{font-size:clamp(1.9rem,3.5vw,3rem)}
 h3{font-size:clamp(1.2rem,2vw,1.55rem)}
 strong{font-weight:700}
