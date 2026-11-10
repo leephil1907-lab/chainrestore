@@ -78,3 +78,13 @@ test("shared stylesheet defines real layout primitives and mobile breakpoints", 
   assert.match(css, /@media\(max-width:380px\)/);
   assert.match(css, /prefers-reduced-motion:reduce/);
 });
+
+test("public copy reflects implemented page scope and account privacy", () => {
+  for (const [file, source] of Object.entries(html)) {
+    assert.doesNotMatch(source, /Agent Portal/i, file + " still labels the guidance page as a live portal");
+  }
+  assert.match(html["agents.html"], /Agent Guide/);
+  assert.match(html["support.html"], /Live chat and call scheduling are not currently available/);
+  assert.match(html["support.html"], /call-booking feature is active yet/);
+  assert.match(html["account.html"], /name="robots" content="noindex,nofollow"/);
+});
