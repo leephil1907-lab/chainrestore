@@ -1,4 +1,5 @@
 "use strict";
+require("dotenv").config();
 const crypto=require("node:crypto");
 const path=require("node:path");
 const express=require("express");
@@ -65,7 +66,7 @@ async function requireAuth(req,res,next){
  catch(e){console.error("session_lookup_failed",e.message);res.status(503).json({error:"Account service is temporarily unavailable."});}
 }
 app.get("/api/auth/me",requireAuth,(req,res)=>res.json({user:req.user}));
-app.post("/api/auth/logout",requireAuth,async(req,res)=>{await pool.query("DELETE FROM sessions WHERE token_hash=$1",[sessionHash(req.cookies[COOKIE])]);res.clearCookie(COOKIE,cookieOptions(0));res.json({ok:true});});
+app.post("/api/auth/logout",requireAuth,async(req,res)=>{await pool.query("DELETE FROM sessions WHERE token_hash=$1",[sessionHash(req.cookies[COOKIE])]);res.clearCookie(COOKIE,{httpOnly:true,secure:process.env.NODE_ENV==="production",sameSite:"lax",path:"/"});res.json({ok:true});});
 async function withUserTransaction(userId,fn){const client=await pool.connect();try{await client.query("BEGIN");await client.query("SELECT set_config('app.current_user_id',$1,true)",[userId]);const result=await fn(client);await client.query("COMMIT");return result;}catch(e){await client.query("ROLLBACK");throw e;}finally{client.release();}}
 app.get("/api/cases/list",requireAuth,async(req,res)=>{try{const q=await withUserTransaction(req.user.id,c=>c.query("SELECT id,network,incident_type,public_reference,incident_date,status,created_at FROM case_reports WHERE user_id=$1 ORDER BY created_at DESC LIMIT 50",[req.user.id]));res.json({cases:q.rows});}catch(e){console.error("case_list_failed",e.message);res.status(500).json({error:"Could not load your incident records."});}});
 app.post("/api/cases/create",requireAuth,caseLimiter,async(req,res)=>{let data;try{data=validateCaseInput(req.body);}catch(e){return res.status(400).json({error:e.message});}try{const q=await withUserTransaction(req.user.id,c=>c.query("INSERT INTO case_reports(user_id,network,incident_type,public_reference,incident_date,details) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,status,created_at",[req.user.id,data.network,data.incidentType,data.reference,data.incidentDate,data.details]));res.status(201).json({ok:true,case:q.rows[0]});}catch(e){console.error("case_create_failed",e.message);res.status(500).json({error:"Your case could not be saved. Try again."});}});
