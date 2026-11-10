@@ -88,3 +88,22 @@ test("public copy reflects implemented page scope and account privacy", () => {
   assert.match(html["support.html"], /call-booking feature is active yet/);
   assert.match(html["account.html"], /name="robots" content="noindex,nofollow"/);
 });
+
+test("every public page has exactly one top-level page heading", () => {
+  for (const [file, source] of Object.entries(html)) {
+    const headings = [...source.matchAll(/<h1\\b[^>]*>/gi)];
+    assert.equal(headings.length, 1, file + " must have exactly one h1");
+  }
+});
+
+test("all local JavaScript assets referenced by public pages exist", () => {
+  for (const [file, source] of Object.entries(html)) {
+    const scripts = [...source.matchAll(/<script\\b[^>]*src=["']([^"']+)["'][^>]*>/gi)];
+    for (const match of scripts) {
+      const ref = match[1];
+      if (!ref.startsWith("/") || ref.startsWith("//") || ref.startsWith("/api/")) continue;
+      const target = path.join(publicDir, localTarget(ref));
+      assert.ok(fs.existsSync(target), file + " references missing script " + ref);
+    }
+  }
+});
