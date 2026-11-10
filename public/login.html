@@ -9,38 +9,5 @@ body{min-height:100vh;display:grid;place-items:center;padding:18px}.login{width:
 <p id="sub" class="muted">Confirm your age first. Your date of birth is checked in this page only and is not saved or sent to ChainRestore.</p>
 <section class="age-panel" id="agePanel"><label for="birthDate">Date of birth</label><input id="birthDate" type="date" autocomplete="off" required><p class="small">ChainRestore is not available to children under 13. Your date of birth is not stored, logged or attached to your account.</p><button class="btn btn-primary" id="ageContinue" type="button">Continue</button><div class="age-block" id="ageBlocked" role="alert">Access is unavailable because ChainRestore is not intended for anyone under 13. No sign-in request was sent and no account information was submitted.</div></section>
 <form id="form" class="hidden"><input id="email" type="email" autocomplete="username" placeholder="Email address" required><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6-digit code" hidden><button class="btn btn-primary" id="submit" type="submit">Send sign-in code</button><button class="btn alt" id="back" type="button" hidden>Use another email</button></form>
-<div id="passkey" class="hidden"><p class="muted">Make future sign-ins easier with a passkey.</p><button class="btn btn-primary" id="addkey" type="button">Add a passkey</button><button class="btn alt" id="skipkey" type="button">Not now</button></div>
 <p class="msg" id="msg" role="status"></p><p class="muted" style="font-size:12px">Never share your verification code with anyone, including support agents. <a href="/privacy.html">Privacy Policy</a></p>
-</main>
-<script>
-(()=> {
- const A=window.hatchable.auth, agePanel=document.getElementById("agePanel"), birth=document.getElementById("birthDate"), ageContinue=document.getElementById("ageContinue"), blocked=document.getElementById("ageBlocked"), form=document.getElementById("form"), email=document.getElementById("email"), code=document.getElementById("code"), submit=document.getElementById("submit"), back=document.getElementById("back"), msg=document.getElementById("msg"), passkey=document.getElementById("passkey");
- let step="email",hasPasskey=false,agePassed=false;
- const next=()=>{const n=new URLSearchParams(location.search).get("next")||"/account.html";return n.startsWith("/")&&!n.startsWith("//")&&!n.includes("\\")?n:"/account.html"};
- const done=()=>location.replace(next());
- function getAge(value){const d=new Date(value+"T00:00:00");if(!value||Number.isNaN(d.getTime())||d>new Date())return null;const now=new Date();let age=now.getFullYear()-d.getFullYear();if(now.getMonth()<d.getMonth()||(now.getMonth()===d.getMonth()&&now.getDate()<d.getDate()))age--;return age;}
- ageContinue.addEventListener("click",async()=>{
-   const age=getAge(birth.value);
-   if(age===null){msg.textContent="Enter a valid date of birth to continue.";return;}
-   if(age<13){form.classList.add("hidden");passkey.classList.add("hidden");blocked.style.display="block";msg.textContent="";return;}
-   agePassed=true;try{sessionStorage.setItem("chainrestore_age_ok","1")}catch(_){}agePanel.classList.add("hidden");form.classList.remove("hidden");document.getElementById("heading").textContent="Welcome to ChainRestore.";document.getElementById("sub").textContent="Sign in with an email verification code. No password required.";msg.textContent="";
-   try{const s=await A.getSession();if(s&&s.user)done()}catch(_){}
- });
- form.addEventListener("submit",async e=>{
-   e.preventDefault();if(!agePassed)return;submit.disabled=true;msg.textContent="";
-   try{
-    if(step==="email"){
-     const r=await A.startLogin({email:email.value.trim()});hasPasskey=!!r.has_passkey;
-     if(hasPasskey&&A.supportsPasskeys()){try{const p=await A.signInWithPasskey({email:email.value.trim()});if(p&&p.user){done();return}}catch(_){}}
-     step="code";code.hidden=false;back.hidden=false;submit.textContent="Verify and sign in";msg.textContent="A one-time code has been sent to your email.";code.focus();
-    }else{
-     const r=await A.verifyCode({email:email.value.trim(),code:code.value.trim()});if(!r||!r.user)throw new Error("Verification failed.");
-     if(!hasPasskey&&A.supportsPasskeys()&&localStorage.getItem("chainrestore_passkey_skip")!=="1"){form.classList.add("hidden");passkey.classList.remove("hidden");document.getElementById("heading").textContent="You're signed in";document.getElementById("sub").textContent="Make future sign-ins easier with a passkey."}else done();
-    }
-   }catch(err){msg.textContent=err.message||"Sign-in could not be completed. Try again."}finally{submit.disabled=false}
- });
- back.addEventListener("click",()=>{step="email";code.hidden=true;back.hidden=true;submit.textContent="Send sign-in code";msg.textContent=""});
- document.getElementById("addkey").addEventListener("click",async()=>{try{await A.registerPasskey();done()}catch(e){msg.textContent=e.message||"Passkey setup was not completed."}});
- document.getElementById("skipkey").addEventListener("click",()=>{localStorage.setItem("chainrestore_passkey_skip","1");done()});
-})();
-</script></body></html>
+</main><script src="/login.js" defer></script></body></html>
