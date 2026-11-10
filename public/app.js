@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Open navigation");
       button.innerHTML = '<span aria-hidden="true">☰</span>';
-      if (restoreFocus && window.matchMedia("(max-width: 850px)").matches) button.focus();
+      if (restoreFocus && window.matchMedia("(max-width: 1100px)").matches) button.focus();
     };
 
     button.addEventListener("click", () => {
