@@ -1,0 +1,10 @@
+ALTER TABLE case_reports ENABLE ROW LEVEL SECURITY;
+ALTER TABLE case_reports FORCE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS case_reports_owner_select ON case_reports;
+CREATE POLICY case_reports_owner_select ON case_reports FOR SELECT USING (user_id = nullif(current_setting('app.current_user_id',true),'')::uuid);
+DROP POLICY IF EXISTS case_reports_owner_insert ON case_reports;
+CREATE POLICY case_reports_owner_insert ON case_reports FOR INSERT WITH CHECK (user_id = nullif(current_setting('app.current_user_id',true),'')::uuid);
+DROP POLICY IF EXISTS case_reports_owner_update ON case_reports;
+CREATE POLICY case_reports_owner_update ON case_reports FOR UPDATE USING (user_id = nullif(current_setting('app.current_user_id',true),'')::uuid) WITH CHECK (user_id = nullif(current_setting('app.current_user_id',true),'')::uuid);
+DROP POLICY IF EXISTS case_reports_owner_delete ON case_reports;
+CREATE POLICY case_reports_owner_delete ON case_reports FOR DELETE USING (user_id = nullif(current_setting('app.current_user_id',true),'')::uuid);
