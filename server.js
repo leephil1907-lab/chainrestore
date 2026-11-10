@@ -33,6 +33,7 @@ app.get("/login",(_req,res)=>res.sendFile(path.join(__dirname,"public","login.ht
 app.get("/account",(_req,res)=>res.sendFile(path.join(__dirname,"public","account.html")));
 app.post("/api/auth/request-code",authLimiter,async(req,res)=>{
  let email;try{email=normalizeEmail(req.body&&req.body.email);}catch(e){return res.status(400).json({error:e.message});}
+ if(!isAtLeast13(req.body&&req.body.birth_date))return res.status(403).json({error:"ChainRestore is not available to anyone under 13. Enter a valid date of birth to continue."});
  try{
   const recent=await pool.query("SELECT count(*)::int AS n FROM login_codes WHERE email=$1 AND created_at>now()-interval '15 minutes'",[email]);
   if(recent.rows[0].n>=5)return res.status(429).json({error:"Too many codes requested for this address. Try again later."});
