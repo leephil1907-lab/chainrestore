@@ -57,7 +57,7 @@ test("every HTML image has alternative text and the home illustration exists", (
 });
 
 test("login, recovery and account forms retain their required controls", () => {
-  for (const id of ["agePanel", "birthDate", "ageContinue", "ageBlocked", "form", "email", "code", "submit", "back", "msg"]) {
+  for (const id of ["agePanel", "birthDate", "ageContinue", "ageBlocked", "form", "email", "code", "codeLabel", "submit", "back", "msg"]) {
     assert.ok(hasId(html["login.html"], id), "login.html missing " + id);
   }
   for (const id of ["caseForm", "network", "type", "tx", "date", "details", "caseMsg"]) {
