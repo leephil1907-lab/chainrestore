@@ -16,6 +16,10 @@ function localTarget(url) {
   return pathname.replace(/^\//, "");
 }
 
+function hasId(source, id) {
+  return source.includes('id="' + id + '"') || source.includes("id='" + id + "'");
+}
+
 test("all public pages include mobile viewport and shared design stylesheet", () => {
   for (const [file, source] of Object.entries(html)) {
     assert.match(source, /name=["']viewport["']/i, file + " is missing its viewport meta");
@@ -34,10 +38,10 @@ test("all non-login pages expose the shared responsive navigation", () => {
 
 test("all local page and asset references resolve inside public", () => {
   for (const [file, source] of Object.entries(html)) {
-    const refs = [...source.matchAll(/(?:href|src)=["'](\/[^"']*)["']/gi)];
+    const refs = [...source.matchAll(/(?:href|src)=["']([^"']+)["']/gi)];
     for (const match of refs) {
       const ref = match[1];
-      if (ref.startsWith("//") || ref.startsWith("/api/")) continue;
+      if (!ref.startsWith("/") || ref.startsWith("//") || ref.startsWith("/api/")) continue;
       const target = path.join(publicDir, localTarget(ref));
       assert.ok(fs.existsSync(target), file + " references missing local path " + ref);
     }
@@ -54,13 +58,13 @@ test("every HTML image has alternative text and the home illustration exists", (
 
 test("login, recovery and account forms retain their required controls", () => {
   for (const id of ["agePanel", "birthDate", "ageContinue", "ageBlocked", "form", "email", "code", "submit", "back", "msg"]) {
-    assert.match(html["login.html"], new RegExp('id=["']' + id + '["']'), "login.html missing " + id);
+    assert.ok(hasId(html["login.html"], id), "login.html missing " + id);
   }
   for (const id of ["caseForm", "network", "type", "tx", "date", "details", "caseMsg"]) {
-    assert.match(html["recovery.html"], new RegExp('id=["']' + id + '["']'), "recovery.html missing " + id);
+    assert.ok(hasId(html["recovery.html"], id), "recovery.html missing " + id);
   }
   for (const id of ["welcome", "cases", "signout"]) {
-    assert.match(html["account.html"], new RegExp('id=["']' + id + '["']'), "account.html missing " + id);
+    assert.ok(hasId(html["account.html"], id), "account.html missing " + id);
   }
 });
 
