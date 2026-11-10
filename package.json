@@ -10,7 +10,7 @@
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
     "test": "node --test",
-    "check": "node --check server.js && node --check scripts/migrate.js && node --check lib/validation.js && node --check public/login.js && node --check public/account.js && node --check public/case.js"
+    "check": "node --check server.js && node --check scripts/migrate.js && node --check lib/validation.js && node --check public/app.js && node --check public/login.js && node --check public/age-gate.js && node --check public/account.js && node --check public/case.js"
   },
   "dependencies": {
     "express": "5.1.0",

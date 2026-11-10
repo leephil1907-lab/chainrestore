@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">ChainRestore blockchain network illustration</title>
+<desc id="desc">A protected central ledger connected to several blockchain network nodes.</desc>
+<defs>
+  <linearGradient id="line" x1="92" y1="74" x2="632" y2="402" gradientUnits="userSpaceOnUse"><stop stop-color="#A8F4D7" stop-opacity=".18"/><stop offset=".52" stop-color="#91E8C5"/><stop offset="1" stop-color="#4FC49D" stop-opacity=".2"/></linearGradient>
+  <linearGradient id="core" x1="260" y1="120" x2="456" y2="344" gradientUnits="userSpaceOnUse"><stop stop-color="#A8F4D7"/><stop offset=".5" stop-color="#55C9A1"/><stop offset="1" stop-color="#155D50"/></linearGradient>
+  <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#29443F"/><stop offset="1" stop-color="#13262D"/></linearGradient>
+  <filter id="glow" x="160" y="38" width="400" height="400" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="24"/></filter>
+  <filter id="shadow" x="0" y="0" width="720" height="470" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<circle cx="360" cy="232" r="154" fill="#4FC49D" fill-opacity=".12" filter="url(#glow)"/>
+<g stroke="url(#line)" stroke-width="2.5" stroke-linecap="round">
+  <path d="M360 230 134 102M360 230 584 104M360 230 642 252M360 230 558 386M360 230 150 384M360 230 78 250"/>
+  <path d="M134 102 78 250M584 104 642 252M558 386 642 252M150 384 78 250" stroke-opacity=".45" stroke-dasharray="5 10"/>
+</g>
+<g fill="#91E8C5"><circle cx="134" cy="102" r="5"/><circle cx="584" cy="104" r="5"/><circle cx="642" cy="252" r="5"/><circle cx="558" cy="386" r="5"/><circle cx="150" cy="384" r="5"/><circle cx="78" cy="250" r="5"/></g>
+<g transform="translate(75 43)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="m59 25 27 15v31L59 86 32 71V40l27-15Z" stroke="#A8F4D7" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m32 40 27 16 27-16M59 56v30" stroke="#A8F4D7" stroke-width="3" stroke-linejoin="round"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">BITCOIN</text>
+</g>
+<g transform="translate(526 45)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="m59 22 20 37-20 37-20-37 20-37Z" fill="#91E8C5" fill-opacity=".12" stroke="#A8F4D7" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m59 22 20 37-20 9-20-9 20-37Z" fill="#A8F4D7" fill-opacity=".24"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">ETHEREUM</text>
+</g>
+<g transform="translate(583 194)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="M59 24 84 38v28L59 80 34 66V38l25-14Z" stroke="#A8F4D7" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m34 38 25 14 25-14M59 52v28" stroke="#A8F4D7" stroke-width="3"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">SOLANA</text>
+</g>
+<g transform="translate(499 326)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="M32 42h54l-10 12H22l10-12Zm0 20h54L76 74H22l10-12Z" fill="#91E8C5" stroke="#A8F4D7" stroke-width="1"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">BNB CHAIN</text>
+</g>
+<g transform="translate(91 326)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="M31 45h56M31 59h56M31 73h56" stroke="#91E8C5" stroke-width="5" stroke-linecap="round"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">TRON</text>
+</g>
+<g transform="translate(19 194)">
+  <rect width="118" height="118" rx="27" fill="url(#tile)" stroke="#A8F4D7" stroke-opacity=".38"/>
+  <path d="M32 38c16-14 38-14 54 0M32 80c16 14 38 14 54 0M36 59h46" stroke="#91E8C5" stroke-width="4" stroke-linecap="round"/>
+  <text x="59" y="106" fill="#D8E9E3" font-size="11" font-family="Arial,sans-serif" text-anchor="middle" letter-spacing="1.5">XRP LEDGER</text>
+</g>
+<g transform="translate(251 124)">
+  <circle cx="109" cy="108" r="115" fill="#4FC49D" fill-opacity=".11" filter="url(#shadow)"/>
+  <path d="M109 12 191 42v65c0 60-34 102-82 128-48-26-82-68-82-128V42l82-30Z" fill="url(#core)" stroke="#C8FFE8" stroke-width="3"/>
+  <path d="m109 46 48 18v42c0 39-20 67-48 85-28-18-48-46-48-85V64l48-18Z" fill="#0E302A" fill-opacity=".48" stroke="#D5FFEC" stroke-opacity=".78" stroke-width="2"/>
+  <path d="m82 108 18 18 38-40" stroke="#D7FFED" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="109" y="222" fill="#E7FFF5" font-size="12" font-family="Arial,sans-serif" font-weight="700" text-anchor="middle" letter-spacing="2">SECURE LEDGER</text>
+</g>
+</svg>

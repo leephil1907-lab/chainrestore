@@ -1,7 +1,7 @@
 name: ChainRestore CI
 on:
   push:
-    branches: [main, render-migration]
+    branches: [main, render-migration, design-functionality-audit]
   pull_request:
     branches: [main]
 jobs:
