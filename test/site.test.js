@@ -107,3 +107,16 @@ test("all local JavaScript assets referenced by public pages exist", () => {
     }
   }
 });
+
+
+test("sign-in form fields have associated accessible labels", () => {
+  assert.match(html["login.html"], /<label[^>]*for="email"/i);
+  assert.match(html["login.html"], /<label[^>]*for="code"/i);
+});
+
+test("authentication code endpoint checks age before creating a login code", () => {
+  const server = fs.readFileSync(path.join(__dirname, "..", "server.js"), "utf8");
+  const endpoint = server.slice(server.indexOf('app.post("/api/auth/request-code"'), server.indexOf('app.post("/api/auth/verify-code"'));
+  assert.match(endpoint, /isAtLeast13\(req\.body&&req\.body\.birth_date\)/);
+  assert.ok(endpoint.indexOf("isAtLeast13") < endpoint.indexOf("INSERT INTO login_codes"));
+});
