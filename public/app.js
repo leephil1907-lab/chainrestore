@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nav.querySelectorAll("a").forEach(link => {
       const path = new URL(link.href, location.origin).pathname;
-      if (path === currentPath) link.setAttribute("aria-current", "page");
+      if (path === currentPath && !link.hash) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
 
