@@ -1,8 +1,0 @@
-[auth]
-enabled = true
-providers = ["email"]
-
-# Incident records are private to their creator. Public visitors have no table access.
-[db.tables.case_reports]
-read = "own"
-write = "own"
