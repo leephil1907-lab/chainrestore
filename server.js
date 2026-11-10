@@ -6,7 +6,7 @@ const express=require("express");
 const helmet=require("helmet");
 const {rateLimit}=require("express-rate-limit");
 const {Pool}=require("pg");
-const {normalizeEmail,validateCaseInput}=require("./lib/validation");
+const {normalizeEmail,validateCaseInput,isAtLeast13}=require("./lib/validation");
 for(const key of ["SESSION_SECRET","OTP_SECRET"])if(process.env.NODE_ENV==="production"&&(!process.env[key]||process.env[key].length<32))throw new Error(key+" must be at least 32 characters.");
 if(!process.env.DATABASE_URL)throw new Error("DATABASE_URL is required.");
 const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.NODE_ENV==="production"?{rejectUnauthorized:false}:undefined,max:10,idleTimeoutMillis:30000,connectionTimeoutMillis:10000});
